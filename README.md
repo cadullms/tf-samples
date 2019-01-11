@@ -8,7 +8,7 @@ Terraform samples for provisioning Azure resources
 
 ## Samples in this repository
 
-* [vm-cloud-init](./cloud-init/README.md) - Based on the Linux VM sample mentioned above, but featuring cloud-init to configure the machine and allowing for one or many machines be created at once.
+* [vm-cloud-init](./vm-cloud-init/README.md) - Based on the Linux VM sample mentioned above, but featuring cloud-init to configure the machine and allowing for one or many machines be created at once.
 * [aks-terraform](./aks-terraform/README.md) - Building a Kubernetes cluster with AKS (TBD) 
 
 ## Useful links

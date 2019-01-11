@@ -1,9 +1,11 @@
-terraform {
-  backend "azurerm" {
-    storage_account_name  = "tfstate5379"
-    container_name        = "tfstate"
-  }
-}
+# To use remote state, see https://docs.microsoft.com/en-us/azure/terraform/terraform-backend 
+
+# terraform {
+#   backend "azurerm" {
+#     storage_account_name  = "tfstate5379"
+#     container_name        = "tfstate"
+#  }
+#}
 
 resource "azurerm_resource_group" "myterraformgroup" {
     name     = "${var.resource_group_name}"

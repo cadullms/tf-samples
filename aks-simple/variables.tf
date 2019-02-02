@@ -1,7 +1,9 @@
-variable "resource_group_name" {
-  description = "The resource group for all this."
-}                   
+variable "agent_count" {
+    default = 3
+}
 
-variable "location" {
-  description = "The location for all this."
-}    
+variable "cluster_name" {
+}
+variable "dns_prefix" {
+    default = "${var.cluster_name}"
+}

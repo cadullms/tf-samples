@@ -12,9 +12,6 @@ variable "agent_count" {
 variable "cluster_name" {
 }
 
-variable "cluster_name" {
-}
-
 variable "dns_prefix" {
 }
 

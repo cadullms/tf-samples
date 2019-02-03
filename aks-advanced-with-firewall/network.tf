@@ -24,32 +24,32 @@ resource "azurerm_subnet" "aks_agent" {
   resource_group_name  = "${azurerm_resource_group.aks_rg.name}"
   virtual_network_name = "${azurerm_virtual_network.aks_vnet.name}}]"
   address_prefix       = "10.0.5.0/24"
-  delegation {
-    name = "default-aks-delegations-sql"
-    service_delegation {
-      name    = "Microsoft.Sql/servers"
-    }
-  }
   # ???
   # az network vnet subnet list-available-delegations --location westeurope --query [].serviceName
-  delegation {
-    name = "default-aks-delegations-sql"
-    service_delegation {
-      name    = "Microsoft.AzureCosmosDB"
-    }
-  }
-  delegation {
-    name = "default-aks-delegations-sql"
-      service_delegation {
-      name    = "Microsoft.KeyVault"
-    }
-  }
-  delegation {
-    name = "default-aks-delegations-sql"
-      service_delegation {
-      name    = "Microsoft.Storage"
-    }
-  }
+  # delegation {
+  #   name = "default-aks-delegations-sql"
+  #   service_delegation {
+  #     name    = "Microsoft.Sql/servers"
+  #   }
+  # }
+  # delegation {
+  #   name = "default-aks-delegations-sql"
+  #   service_delegation {
+  #     name    = "Microsoft.AzureCosmosDB"
+  #   }
+  # }
+  # delegation {
+  #   name = "default-aks-delegations-sql"
+  #     service_delegation {
+  #     name    = "Microsoft.KeyVault"
+  #   }
+  # }
+  # delegation {
+  #   name = "default-aks-delegations-sql"
+  #     service_delegation {
+  #     name    = "Microsoft.Storage"
+  #   }
+  # }
 }
 
 resource "azurerm_role_assignment" "vnet-to-aks-sp" {

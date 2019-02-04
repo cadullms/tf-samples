@@ -79,12 +79,12 @@ resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-
     ]
 
     protocol {
-      type = "http"
+      type = "Http"
       port = 80
     }
-    
+
     protocol {
-      type = "https"
+      type = "Https"
       port = 443
     }
 

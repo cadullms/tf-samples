@@ -50,8 +50,8 @@ resource "azurerm_public_ip" "aks_firewall_ip" {
 
 resource "azurerm_firewall" "aks_firewall" {
   name                = "aks-firewall"
-  location            = "${azurerm_resource_group.test.location}"
-  resource_group_name = "${azurerm_resource_group.test.name}"
+  location            = "${azurerm_resource_group.aks_rg.location}"
+  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
 
   ip_configuration {
     name                 = "configuration"

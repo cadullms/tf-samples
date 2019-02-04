@@ -12,6 +12,10 @@ variable "agent_count" {
 variable "cluster_name" {
 }
 
+variable "k8s_version" {
+  default = "1.12.4"
+}
+
 variable "dns_prefix" {
 }
 

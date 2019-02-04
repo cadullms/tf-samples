@@ -18,6 +18,9 @@ variable "dns_prefix" {
 variable "ssh_public_key_data" {
 }
 
+variable "sp_object_id" {
+}
+
 variable "sp_client_id" {
 }
 

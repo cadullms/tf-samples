@@ -52,8 +52,15 @@ resource "azurerm_subnet" "aks_agent" {
   # }
 }
 
+# This would be great, but it's not there yet
+# https://github.com/terraform-providers/terraform-provider-azurerm/issues/1338
+# data "azurerm_service_principal" "aks_sp" {
+#     client_id = "${var.sp_object_id}"
+# }
+# and then read ${azurerm_service_principal.aks_sp.object_id}. Then we would not neet to pass this as a parameter
+
 resource "azurerm_role_assignment" "vnet-to-aks-sp" {
   scope              = "${azurerm_virtual_network.aks_vnet.id}"
   role_definition_name = "Virtual Machine Contributor"
-  principal_id       = "${var.sp_client_id}"
+  principal_id       = "${var.sp_object_id}"
 }

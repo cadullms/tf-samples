@@ -61,6 +61,31 @@ resource "azurerm_firewall" "aks_firewall" {
   }
 }
 
+resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-rules" {
+  name                = "aksbasics"
+  azure_firewall_name = "${azurerm_firewall.aks_firewall.name}"
+  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
+  priority            = 100
+  action              = "Allow"
+
+  rule {
+    name = "allow network"
+    source_addresses = [
+      "*",
+    ]
+    protocols = [
+      "http",
+      "https",
+    ]
+    target-fqdns = [
+      "*.azmk8s.io",
+      "*auth.docker.io",
+      "*cloudflare.docker.io",
+      "*registry-1.docker.io",
+    ]
+  }
+}
+
 resource "azurerm_route_table" "aks_firewall_routes" {
   name                          = "aks-firewall-routes"
   location                      = "${azurerm_resource_group.aks_rg.location}"

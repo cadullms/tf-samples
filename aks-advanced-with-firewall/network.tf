@@ -88,7 +88,7 @@ resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-
       port = 443
     }
 
-    target-fqdn = [
+    target_fqdns = [
       "*.azmk8s.io",
       "*auth.docker.io",
       "*cloudflare.docker.io",

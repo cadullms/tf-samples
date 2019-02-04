@@ -5,8 +5,8 @@ resource "azurerm_virtual_network" "aks_vnet" {
   resource_group_name = "${azurerm_resource_group.aks_rg.name}"
 }
 
-resource "azurerm_subnet" "aks_firewall" {
-  name                 = "aks-firewall-subnet"
+resource "azurerm_subnet" "AzureFirewallSubnet" {
+  name                 = "AzureFirewallSubnet"
   resource_group_name  = "${azurerm_resource_group.aks_rg.name}"
   virtual_network_name = "${azurerm_virtual_network.aks_vnet.name}"
   address_prefix       = "10.0.3.0/24"
@@ -25,6 +25,7 @@ resource "azurerm_subnet" "aks_agent" {
   virtual_network_name = "${azurerm_virtual_network.aks_vnet.name}"
   address_prefix       = "10.0.5.0/24"
   service_endpoints    = ["Microsoft.Sql","Microsoft.AzureCosmosDB","Microsoft.KeyVault","Microsoft.Storage"]
+  route_table_id       = "${azurerm_route_table.aks_firewall_routes.id}"
 }
 
 # This would be great, but it's not there yet
@@ -55,7 +56,25 @@ resource "azurerm_firewall" "aks_firewall" {
 
   ip_configuration {
     name                 = "configuration"
-    subnet_id            = "${azurerm_subnet.aks_firewall.id}"
+    subnet_id            = "${azurerm_subnet.AzureFirewallSubnet.id}"
     public_ip_address_id = "${azurerm_public_ip.aks_firewall_ip.id}"
+  }
+}
+
+resource "azurerm_route_table" "aks_firewall_routes" {
+  name                          = "aks-firewall-routes"
+  location                      = "${azurerm_resource_group.aks_rg.location}"
+  resource_group_name           = "${azurerm_resource_group.aks_rg.name}"
+  disable_bgp_route_propagation = false
+
+  route {
+    name                   = "aks-firewall-route"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.0.3.4"
+  }
+
+  tags {
+    environment = "${var.environment_name}"
   }
 }

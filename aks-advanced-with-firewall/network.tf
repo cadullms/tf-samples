@@ -54,6 +54,6 @@ resource "azurerm_subnet" "aks_agent" {
 
 resource "azurerm_role_assignment" "vnet-to-aks-sp" {
   scope              = "${azurerm_virtual_network.aks_vnet.id}"
-  role_definition_id = "Virtual Machine Contributor"
+  role_definition_name = "Virtual Machine Contributor"
   principal_id       = "${var.sp_client_id}"
 }

@@ -25,7 +25,11 @@ resource "azurerm_subnet" "aks_agent" {
   virtual_network_name = "${azurerm_virtual_network.aks_vnet.name}"
   address_prefix       = "10.0.5.0/24"
   service_endpoints    = ["Microsoft.Sql","Microsoft.AzureCosmosDB","Microsoft.KeyVault","Microsoft.Storage"]
-  route_table_id       = "${azurerm_route_table.aks_firewall_routes.id}"
+}
+
+resource "azurerm_subnet_route_table_association" "aks_agent_route_table_association" {
+  subnet_id      = "${azurerm_subnet.aks_agent.id}"
+  route_table_id = "${azurerm_route_table.aks_firewall_routes.id}"
 }
 
 # This would be great, but it's not there yet
@@ -73,7 +77,7 @@ resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-
     source_addresses = [
       "*",
     ]
-    protocols = [
+    protocol = [
       "http",
       "https",
     ]

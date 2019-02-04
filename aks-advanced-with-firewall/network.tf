@@ -39,3 +39,23 @@ resource "azurerm_role_assignment" "vnet-to-aks-sp" {
   role_definition_name = "Virtual Machine Contributor"
   principal_id         = "${var.sp_object_id}"
 }
+
+resource "azurerm_public_ip" "aks_firewall_ip" {
+  name                = "aks-firewall-ip"
+  location            = "${azurerm_resource_group.aks_rg.location}"
+  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_firewall" "aks_firewall" {
+  name                = "aks-firewall"
+  location            = "${azurerm_resource_group.test.location}"
+  resource_group_name = "${azurerm_resource_group.test.name}"
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = "${azurerm_subnet.aks_firewall.id}"
+    public_ip_address_id = "${azurerm_public_ip.aks_firewall_ip.id}"
+  }
+}

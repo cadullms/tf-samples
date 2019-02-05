@@ -33,13 +33,13 @@ resource "azurerm_network_interface" "aks_jumphost_nic" {
     }
 }
 
-data "template_cloudinit_config" "config" {
+data "template_cloudinit_config" "aks_jumphost_config" {
   gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
-    content      = "${file("cloud-config.txt")}"
+    content      = "${file("cloud-init.txt")}"
   }
 }
 
@@ -67,7 +67,7 @@ resource "azurerm_virtual_machine" "aks_jumphost" {
     os_profile {
         computer_name  = "aks-jumphost"
         admin_username = "${var.jumphost_admin_username}"
-        custom_data    = "${data.jumphost_template_cloudinit_config.config.rendered}"
+        custom_data    = "${data.template_cloudinit_config.aks_jumphost_config}"
     }
 
     os_profile_linux_config {

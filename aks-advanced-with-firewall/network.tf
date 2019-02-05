@@ -94,13 +94,13 @@ resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-
     }
 
     target_fqdns = [
-      "*.azmk8s.io",
-      "*.auth.docker.io",
-      "*.cloudflare.docker.com",
-      "*.registry-1.docker.io",
-      "*.ubuntu.com",
-      "*.azurecr.io",
-      "*.blob.core.windows.net"
+      "*azmk8s.io",
+      "*auth.docker.io",
+      "*cloudflare.docker.com",
+      "*registry-1.docker.io",
+      "*ubuntu.com",
+      "*azurecr.io",
+      "*blob.core.windows.net"
     ]
   }
 }

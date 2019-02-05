@@ -34,3 +34,6 @@ variable "sp_client_secret" {
 
 variable "environment_name" {
 }
+
+variable "jumphost_admin_username" {}
+variable "jumphost_admin_ssh_public_key_data" {}

@@ -32,6 +32,11 @@ resource "azurerm_subnet_route_table_association" "aks_agent_route_table_associa
   route_table_id = "${azurerm_route_table.aks_firewall_routes.id}"
 }
 
+resource "azurerm_subnet_route_table_association" "aks_ingress_route_table_association" {
+  subnet_id      = "${azurerm_subnet.aks_ingress.id}"
+  route_table_id = "${azurerm_route_table.aks_firewall_routes.id}"
+}
+
 # This would be great, but it's not there yet
 # https://github.com/terraform-providers/terraform-provider-azurerm/issues/1338
 # data "azurerm_service_principal" "aks_sp" {

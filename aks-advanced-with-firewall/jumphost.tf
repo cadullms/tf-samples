@@ -67,7 +67,7 @@ resource "azurerm_virtual_machine" "aks_jumphost" {
     os_profile {
         computer_name  = "aks-jumphost"
         admin_username = "${var.jumphost_admin_username}"
-        custom_data    = "${data.template_cloudinit_config.aks_jumphost_config}"
+        custom_data    = "${data.template_cloudinit_config.aks_jumphost_config.rendered}"
     }
 
     os_profile_linux_config {

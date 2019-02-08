@@ -30,7 +30,7 @@ resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
     ]
 
     destination_addresses = [
-      "10.0.5.0/24",
+      "*",
     ]
 
     protocols = [

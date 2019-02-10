@@ -21,7 +21,7 @@ resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
     name = "allow network"
 
     source_addresses = [
-      "10.0.0.0/16",
+      "*",
     ]
 
     destination_ports = [

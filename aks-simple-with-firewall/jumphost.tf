@@ -9,7 +9,7 @@ resource "azurerm_public_ip" "aks_jumphost_public_ip" {
     name                         = "aks-jumphost-public-ip"
     location                     = "${azurerm_resource_group.aks_rg.location}"
     resource_group_name          = "${azurerm_resource_group.aks_rg.name}"
-    public_ip_address_allocation = "dynamic"
+    allocation_method = "Dynamic"
 
     tags {
         environment = "${var.environment_name}"

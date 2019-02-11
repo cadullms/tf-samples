@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "aks_rg" {
   location = "${var.location}"
 }
 
-resource "azurerm_kubernetes_cluster" "advanced_with_firewall" {
+resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = "${var.cluster_name}"
   location            = "${azurerm_resource_group.aks_rg.location}"
   resource_group_name = "${azurerm_resource_group.aks_rg.name}"

@@ -43,7 +43,7 @@ resource "azurerm_public_ip" "aks_firewall_ip" {
 
 data "azurerm_route_table" "aks_firewall_routes" {
   resource_group_name = "${azurerm_kubernetes_cluster.advanced_with_firewall.node_resource_group}"
-  name                = "blah"
+  name                = "aks-agentpool-65773468-routetable"
 }
 
 resource "azurerm_route" "aks_firewall_route" {

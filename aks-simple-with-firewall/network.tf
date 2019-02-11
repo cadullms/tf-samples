@@ -46,14 +46,9 @@ resource "azurerm_public_ip" "aks_firewall_ip" {
   sku                 = "Standard"
 }
 
-data "azurerm_route_table" "aks_routes" {
-  resource_group_name  = "${azurerm_kubernetes_cluster.advanced_with_firewall.node_resource_group}"
-  name                 = ""
-}
-
 resource "azurerm_route" "aks_firewall_route" {
   resource_group_name    = "${azurerm_kubernetes_cluster.advanced_with_firewall.node_resource_group}"
-  route_table_name       = "${azurerm_route_table.aks_routes.name}"
+  route_table_name       = "blah"
   name                   = "aks-firewall-route"
   address_prefix         = "0.0.0.0/0"
   next_hop_type          = "VirtualAppliance"

@@ -27,11 +27,6 @@ resource "azurerm_subnet" "aks_agent" {
   service_endpoints    = ["Microsoft.Sql","Microsoft.AzureCosmosDB","Microsoft.KeyVault","Microsoft.Storage"]
 }
 
-resource "azurerm_subnet_route_table_association" "aks_agent_route_table_association" {
-  subnet_id      = "${azurerm_subnet.aks_agent.id}"
-  route_table_id = "${azurerm_route_table.aks_firewall_routes.id}"
-}
-
 resource "azurerm_role_assignment" "vnet-to-aks-sp" {
   scope                = "${azurerm_virtual_network.aks_vnet.id}"
   role_definition_name = "Virtual Machine Contributor"
@@ -46,11 +41,21 @@ resource "azurerm_public_ip" "aks_firewall_ip" {
   sku                 = "Standard"
 }
 
+data "azurerm_route_table" "aks_firewall_routes" {
+  resource_group_name = "${azurerm_kubernetes_cluster.advanced_with_firewall.node_resource_group}"
+  name                = "blah"
+}
+
 resource "azurerm_route" "aks_firewall_route" {
   resource_group_name    = "${azurerm_kubernetes_cluster.advanced_with_firewall.node_resource_group}"
-  route_table_name       = "blah"
+  route_table_name       = "${data.azurerm_route_table.aks_firewall_routes.name}"
   name                   = "aks-firewall-route"
   address_prefix         = "0.0.0.0/0"
   next_hop_type          = "VirtualAppliance"
   next_hop_in_ip_address = "10.0.3.4"
+}
+
+resource "azurerm_subnet_route_table_association" "aks_agent_route_table_association" {
+  subnet_id      = "${azurerm_subnet.aks_agent.id}"
+  route_table_id = "${data.azurerm_route_table.aks_firewall_routes.id}"
 }

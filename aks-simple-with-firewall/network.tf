@@ -40,27 +40,3 @@ resource "azurerm_public_ip" "aks_firewall_ip" {
   allocation_method   = "Static"
   sku                 = "Standard"
 }
-
-THE FOLLOWING DOES NOT WORK
-We will need a provisioner for this.
-* Either getting that stupid route table number for us, so that we can replace aks-agentpool-\\d+-routetable with the correct value
-* Or by simply doing the association and additional route in a provisioner for the cluster resource itself
-
-data "azurerm_route_table" "aks_firewall_routes" {
-  resource_group_name = "${azurerm_kubernetes_cluster.aks_cluster.node_resource_group}"
-  name = "aks-agentpool-\\d+-routetable"
-}
-
-resource "azurerm_route" "aks_firewall_route" {
-  resource_group_name    = "${azurerm_kubernetes_cluster.aks_cluster.node_resource_group}"
-  route_table_name       = "${data.azurerm_route_table.aks_firewall_routes.name}"
-  name                   = "aks-firewall-route"
-  address_prefix         = "0.0.0.0/0"
-  next_hop_type          = "VirtualAppliance"
-  next_hop_in_ip_address = "10.0.3.4"
-}
-
-resource "azurerm_subnet_route_table_association" "aks_agent_route_table_association" {
-  subnet_id      = "${azurerm_subnet.aks_agent.id}"
-  route_table_id = "${data.azurerm_route_table.aks_firewall_routes.id}"
-}

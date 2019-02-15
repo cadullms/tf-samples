@@ -23,7 +23,7 @@ variable "ssh_public_key_data" {
 }
 
 variable "sp_object_id" {
-  description="Not the app registration's object id needed here. It MUST be the (corresponding) service principal's object id. You can get that with: az ad sp list --show-mine --query \"[?displayName=='myappandspdisplayname']\""
+  description="Not the app registration's object id needed here. It MUST be the (corresponding) service principal's object id. You can get that with: az ad sp list --show-mine --query \"[?displayName=='myapp'].objectId\""
 }
 
 variable "sp_client_id" {

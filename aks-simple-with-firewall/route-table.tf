@@ -8,7 +8,8 @@ data "external" "aks_route_table" {
 }
 
 data "azurerm_route_table" "aks_firewall_routes" {
-  name = "${data.external.aks_route_table.result.route_table_name}"
+  # See https://github.com/terraform-providers/terraform-provider-external/issues/4 (directly referencing "result.myattribute" will not work if the external data is referencing a computed value as input. instead needs to use a lookup.)
+  name = "${lookup(data.external.aks_route_table.result, "name")}"
   resource_group_name = "${azurerm_kubernetes_cluster.aks_cluster.node_resource_group}"
 }
 

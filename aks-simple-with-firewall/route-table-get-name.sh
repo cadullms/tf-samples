@@ -13,6 +13,6 @@ eval "$(jq -r '@sh "RESOURCE_GROUP=\(.resource_group)"')"
 # $ARM_TENANT_ID
 
 az aks login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET -t $ARM_TENANT_ID
-$ROUTE_TABLE_NAME = $(az network route-table list -g $RESOURCE_GROUP --query "[].name" -o tsv)
+$name = $(az network route-table list -g $RESOURCE_GROUP --query "[].name" -o tsv)
 
-jq -n --arg foobaz "$ROUTE_TABLE_NAME" '{"route_table_name":$route_table_name}'
+jq -n --arg foobaz "$name" '{"name":$name}'

@@ -8,7 +8,7 @@ data "external" "aks_route_table" {
 }
 
 data "azurerm_route_table" "aks_firewall_routes" {
-  name = "${data.external.aks_route_table.result.name}"
+  name = "${data.external.aks_route_table.name}"
   resource_group_name = "${azurerm_kubernetes_cluster.aks_cluster.node_resource_group}"
 }
 

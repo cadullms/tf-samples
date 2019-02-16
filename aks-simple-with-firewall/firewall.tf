@@ -25,7 +25,7 @@ resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
     ]
 
     destination_ports = [
-      "443",
+      "22",
     ]
 
     destination_addresses = [

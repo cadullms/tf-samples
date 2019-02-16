@@ -2,7 +2,7 @@
 
 # See https://www.terraform.io/docs/providers/external/data_source.html
 logfile="route-table-get-name.log"
-echo "Start external resource." >> $logfile
+echo "Start external resource." > $logfile
 
 # Exit if any of the intermediate steps fail
 set -e

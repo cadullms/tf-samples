@@ -10,34 +10,33 @@ resource "azurerm_firewall" "aks_firewall" {
   }
 }
 
-#resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
-#  name                = "aksnetwork"
-#  azure_firewall_name = "${azurerm_firewall.aks_firewall.name}"
-#  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
-#  priority            = 100
-#  action              = "Allow"
-#
-#  rule {
-#    name = "allow network"
-#
-#    source_addresses = [
-#      "*",
-#    ]
-#
-#    destination_ports = [
-#      "22",
-#      "443",
-#    ]
-#
-#    destination_addresses = [
-#      "*",
-#    ]
-#
-#    protocols = [
-#      "TCP",
-#    ]
-#  }
-#}
+resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
+  name                = "aksnetwork"
+  azure_firewall_name = "${azurerm_firewall.aks_firewall.name}"
+  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
+  priority            = 100
+  action              = "Allow"
+
+  rule {
+    name = "allow network"
+
+    source_addresses = [
+      "*",
+    ]
+
+    destination_ports = [
+      "443",
+    ]
+
+    destination_addresses = [
+      "*",
+    ]
+
+    protocols = [
+      "TCP",
+    ]
+  }
+}
 
 resource "azurerm_firewall_application_rule_collection" "essential-arm-firewall-rules" {
   name                = "aksbasics"

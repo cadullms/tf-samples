@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # See https://www.terraform.io/docs/providers/external/data_source.html
-
-echo "Start external resource." 1>&2
+logfile="route-table-get-name.log"
+echo "Start external resource." >> $logfile
 
 # Exit if any of the intermediate steps fail
 set -e
@@ -19,9 +19,9 @@ eval "$(jq -r '@sh "RESOURCE_GROUP=\(.resource_group)"')"
 
 name=$(az network route-table list -g $RESOURCE_GROUP --query "[].name" -o tsv)
 
-echo "ARM_CLIENT_ID: $ARM_CLIENT_ID" 1>&2
-echo "ARM_TENANT_ID: $ARM_TENANT_ID" 1>&2
-echo "RESOURCE_GROUP: $RESOURCE_GROUP" 1>&2
-echo "name: $name" 1>&2
+echo "ARM_CLIENT_ID: $ARM_CLIENT_ID" >> $logfile
+echo "ARM_TENANT_ID: $ARM_TENANT_ID" >> $logfile
+echo "RESOURCE_GROUP: $RESOURCE_GROUP" >> $logfile
+echo "name: $name" >> $logfile
 
 jq -n --arg name "$name" '{"name":$name}'

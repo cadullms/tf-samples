@@ -2,6 +2,8 @@
 
 # See https://www.terraform.io/docs/providers/external/data_source.html
 
+echo "Start external resource."
+
 # Exit if any of the intermediate steps fail
 set -e
 

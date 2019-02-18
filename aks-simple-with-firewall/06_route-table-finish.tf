@@ -7,7 +7,7 @@ resource "null_resource" "cluster_route_table_finish" {
       KUBE_RESOURCE_GROUP = "${var.resource_group_name}"
       NODE_RESOURCE_GROUP = "${azurerm_kubernetes_cluster.aks_cluster.node_resource_group}"
       AGENT_SUBNET_ID = "${azurerm_subnet.aks_agent.id}"
-      FW_PRIVATE_IP = "${azurerm_firewall.aks_firewall.ip_configuration.private_ip_address}"
+      FW_PRIVATE_IP = "${lookup(azurerm_firewall.aks_firewall.ip_configuration,"private_ip_address")}"
       SUBSCRIPTION_ID = "${data.azurerm_subscription.current.id}"
     }
   }

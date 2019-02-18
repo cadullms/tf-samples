@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = ""
+  version = "1.22.0"
 }
 
 data "azurerm_subscription" "current" {}

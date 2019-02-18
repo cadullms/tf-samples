@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo "Start cluster-route-table-finish..."
-echo "KUBE_RESOURCE_GROUP: $KUBE_RESOURCE_GROUP"
 echo "NODE_RESOURCE_GROUP: $NODE_RESOURCE_GROUP"
 echo "AGENT_SUBNET_ID    : $AGENT_SUBNET_ID"
 echo "FW_PRIVATE_IP      : $FW_PRIVATE_IP"
@@ -26,16 +25,17 @@ echo "route_table_name: $route_table_name"
 echo "route_table_id  : $route_table_id" 
 echo "node_nsg_id     : $node_nsg_id"
 
+echo "Assigning route table to subnet."
 az network vnet subnet update \
-  --resource-group $KUBE_RESOURCE_GROUP \
   --route-table $route_table_id \
   --network-security-group $node_nsg_id \
   --ids $AGENT_SUBNET_ID
+
+echo "Adding catch-all-to-firewall-route to route-table."
 az network route-table route create \
   --resource-group $NODE_RESOURCE_GROUP \
   --name "agents-to-fw-rule" \
   --route-table-name $route_table_name \
   --address-prefix "0.0.0.0/0" \
   --next-hop-type VirtualAppliance \
-  --next-hop-ip-address $FW_PRIVATE_IP \
-  --subscription $SUBSCRIPTION_ID
+  --next-hop-ip-address $FW_PRIVATE_IP

@@ -39,7 +39,7 @@ data "template_cloudinit_config" "aks_jumphost_config" {
 
   part {
     content_type = "text/cloud-config"
-    content      = "${file("cloud-init.txt")}"
+    content      = "${file("./support-files/jumphost-cloudinit.txt")}"
   }
 }
 

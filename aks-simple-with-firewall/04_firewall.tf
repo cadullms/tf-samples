@@ -1,3 +1,11 @@
+resource "azurerm_public_ip" "aks_firewall_ip" {
+  name                = "aks-firewall-ip"
+  location            = "${azurerm_resource_group.aks_rg.location}"
+  resource_group_name = "${azurerm_resource_group.aks_rg.name}"
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
 resource "azurerm_firewall" "aks_firewall" {
   name                = "aks-firewall"
   location            = "${azurerm_resource_group.aks_rg.location}"

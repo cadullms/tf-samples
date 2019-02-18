@@ -1,5 +1,5 @@
 # # TODO_ Replace with something that is not dependent on external programs, once we can get the route-table name otherwise
-resource "null_resource" {
+resource "null_resource" "cluster_route_table_finish" {
 
   provisioner  "local-exec" {
     command = "./support-files/cluster-route-table-finish.sh"

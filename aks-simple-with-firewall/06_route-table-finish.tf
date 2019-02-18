@@ -14,6 +14,6 @@ resource "null_resource" "cluster_route_table_finish" {
     }
   }
 
-  dependson = ["${azurerm_firewall.aks_firewall}"] #TODO: Remove, once the private ip works (see above), because then the dependency will be implicit
+  depends_on = ["azurerm_firewall.aks_firewall"] #TODO: Remove, once the private ip works (see above), because then the dependency will be implicit
   
 }

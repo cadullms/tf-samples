@@ -1,4 +1,4 @@
-# # TODO_ Replace with something that is not dependent on external programs, once we can get the route-table name otherwise
+# TODO: Replace with something that is not dependent on external programs, once we can get the route-table name otherwise
 resource "null_resource" "cluster_route_table_finish" {
 
   provisioner  "local-exec" {
@@ -9,10 +9,9 @@ resource "null_resource" "cluster_route_table_finish" {
       # Following line would be better, but tf cannot find private_ip_address though doc says it should be there: https://www.terraform.io/docs/providers/azurerm/r/firewall.html#private_ip_address
       # FW_PRIVATE_IP = "${azurerm_firewall.aks_firewall.ip_configuration.private_ip_address}"
       FW_PRIVATE_IP = "10.0.3.4"
-      SUBSCRIPTION_ID = "${data.azurerm_subscription.current.subscription_id}"
     }
   }
 
-  depends_on = ["azurerm_firewall.aks_firewall"] #TODO: Remove, once the private ip works (see above), because then the dependency will be implicit
+  depends_on = ["azurerm_firewall.aks_firewall"] #TODO: Remove once the private ip works (see above), because then the dependency will be implicit
   
 }

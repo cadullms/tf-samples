@@ -4,7 +4,6 @@ echo "Start cluster-route-table-finish..."
 echo "NODE_RESOURCE_GROUP: $NODE_RESOURCE_GROUP"
 echo "AGENT_SUBNET_ID    : $AGENT_SUBNET_ID"
 echo "FW_PRIVATE_IP      : $FW_PRIVATE_IP"
-echo "SUBSCRIPTION_ID    : $SUBSCRIPTION_ID"
 
 # Exit if any of the intermediate steps fail
 set -e

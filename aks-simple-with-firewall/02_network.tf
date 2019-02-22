@@ -19,13 +19,7 @@ resource "azurerm_subnet" "aks_ingress" {
   address_prefix       = "10.0.4.0/24"
 }
 
-resource "azurerm_subnet" "aks_agent" {
-  name                 = "aks-agent-subnet"
-  resource_group_name  = "${azurerm_resource_group.aks_rg.name}"
-  virtual_network_name = "${azurerm_virtual_network.aks_vnet.name}"
-  address_prefix       = "10.0.5.0/24"
-  service_endpoints    = ["Microsoft.Sql","Microsoft.AzureCosmosDB","Microsoft.KeyVault","Microsoft.Storage"]
-}
+#Agent Subnet is defined in agent_subnet_fix.tf
 
 resource "azurerm_role_assignment" "vnet-to-aks-sp" {
   scope                = "${azurerm_virtual_network.aks_vnet.id}"

@@ -3,8 +3,8 @@
 #!/bin/bash
 
 # See https://www.terraform.io/docs/providers/external/data_source.html
-logfile="route-table-get-info.log"
-echo "Start external data resource." > $logfile
+logfile="node-resource-group-get-info.log"
+echo "Start external data resource." >> $logfile
 
 # Exit if any of the intermediate steps fail
 set -e

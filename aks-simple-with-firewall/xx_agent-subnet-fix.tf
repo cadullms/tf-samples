@@ -11,7 +11,7 @@
 # The last two requirements are a contradiction, so what can we do?
 
 data "external" "aks_node_resource_group_info" {
-  program = ["bash", "${path.module}/support-files/route-table-get-info.sh"]
+  program = ["bash", "${path.module}/support-files/node-resource-group-get-info.sh"]
 
   query = {
     aks_resource_group = "${azurerm_resource_group.aks_rg.name}"
@@ -21,7 +21,7 @@ data "external" "aks_node_resource_group_info" {
 }
 
 data "external" "aks_node_resource_group_info_empty" {
-  program = ["bash", "${path.module}/support-files/route-table-get-info.sh"]
+  program = ["bash", "${path.module}/support-files/node-resource-group-get-info.sh"]
    query = {
     aks_resource_group = "${azurerm_resource_group.aks_rg.name}"
     aks_name           = "${var.cluster_name}"

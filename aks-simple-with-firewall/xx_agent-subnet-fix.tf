@@ -24,7 +24,7 @@ data "external" "aks_node_resource_group_info_empty" {
   program = ["bash", "${path.module}/support-files/node-resource-group-get-info.sh"]
    query = {
     aks_resource_group = "${azurerm_resource_group.aks_rg.name}"
-    aks_name           = "${var.cluster_name}"
+    aks_name           = "${local.cluster_name}"
     # This is NOT dependent on the cluster, will thus be evaluated BEFORE cluster creation.
     # Thus we can use it for the info we need to set on subnet creation.
     # The script will be resilient to this, and if the cluster does not exist yet,

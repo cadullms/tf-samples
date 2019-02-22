@@ -14,7 +14,7 @@ data "external" "aks_node_resource_group_info" {
   program = ["bash", "${path.module}/support-files/route-table-get-info.sh"]
 
   query = {
-    aks_resource_group = "${var.resource_group_name}"
+    aks_resource_group = "${azurerm_resource_group.aks_rg.name}"
     aks_name           = "${azurerm_kubernetes_cluster.aks_cluster.name}"
     # This is dependent on the cluster, will thus be evaluated AFTER cluster creation
   }
@@ -23,7 +23,7 @@ data "external" "aks_node_resource_group_info" {
 data "external" "aks_node_resource_group_info_empty" {
   program = ["bash", "${path.module}/support-files/route-table-get-info.sh"]
    query = {
-    aks_resource_group = "${var.resource_group_name}"
+    aks_resource_group = "${azurerm_resource_group.aks_rg.name"
     aks_name           = "${var.cluster_name}"
     # This is NOT dependent on the cluster, will thus be evaluated BEFORE cluster creation.
     # Thus we can use it for the info we need to set on subnet creation.

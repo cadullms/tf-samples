@@ -1,4 +1,16 @@
-variable "resource_group_name" {
+variable "name" {
+  
+}
+
+locals {
+  resource_group_name = "${var.name}-rg"
+  cluster_name        = "${var.name}"
+}
+
+variable "environment_name" {
+}
+
+variable "dns_prefix" {
 }
 
 variable "location" {
@@ -9,14 +21,8 @@ variable "agent_count" {
   default = 3
 }
 
-variable "cluster_name" {
-}
-
 variable "k8s_version" {
   default = "1.12.4"
-}
-
-variable "dns_prefix" {
 }
 
 variable "ssh_public_key_data" {
@@ -30,9 +36,6 @@ variable "sp_client_id" {
 }
 
 variable "sp_client_secret" {
-}
-
-variable "environment_name" {
 }
 
 variable "jumphost_admin_username" {}

@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                = "${var.cluster_name}"
+  name                = "${local.cluster_name}"
   location            = "${azurerm_resource_group.aks_rg.location}"
   resource_group_name = "${azurerm_resource_group.aks_rg.name}"
   dns_prefix          = "${var.dns_prefix}"

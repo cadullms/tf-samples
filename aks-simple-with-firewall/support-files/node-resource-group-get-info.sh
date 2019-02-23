@@ -45,7 +45,7 @@ result=$(jq -n \
   --arg rt_id "$rt_id"\
   --arg nsg_name "$nsg_name"\
   --arg nsg_id "$nsg_id"\
-   '{"rt_name":"$rt_name","rt_id":"$rt_id","nsg_name":"$nsg_name","nsg_id":"$nsg_id"}')
+   '{"rt_name":$rt_name,"rt_id":$rt_id,"nsg_name":$nsg_name,"nsg_id":$nsg_id}')
 
 echo "result       : $result" >> $logfile
 echo "$result"

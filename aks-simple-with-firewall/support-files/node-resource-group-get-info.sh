@@ -40,9 +40,12 @@ echo "rt_id        : $rt_id" >> $logfile
 echo "nsg_name     : $nsg_name" >> $logfile
 echo "nsg_id       : $nsg_id" >> $logfile
 
-jq -n \
+result=$(jq -n \
   --arg rt_name "$rt_name"\
   --arg rt_id "$rt_id"\
   --arg nsg_name "$nsg_name"\
   --arg nsg_id "$nsg_id"\
-   '{"rt_name":"$rt_name","rt_id":"$rt_id","nsg_name":"$nsg_name","nsg_id":"$nsg_id"}'
+   '{"rt_name":"$rt_name","rt_id":"$rt_id","nsg_name":"$nsg_name","nsg_id":"$nsg_id"}')
+
+echo "result       : $result" >> $logfile
+echo "$result"

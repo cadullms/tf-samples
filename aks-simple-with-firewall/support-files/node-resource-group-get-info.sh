@@ -7,8 +7,8 @@ echo "Start external data resource." >> $logfile
 # Exit if any of the intermediate steps fail
 set -e
 
-eval "$(jq -r '@sh "AKS_RESOURCE_GROUP=\(.aks_resource_group)"')"
 eval "$(jq -r '@sh "AKS_NAME=\(.aks_name)"')"
+eval "$(jq -r '@sh "AKS_RESOURCE_GROUP=\(.aks_resource_group)"')"
 
 echo "AKS_RESOURCE_GROUP: $AKS_RESOURCE_GROUP" >> $logfile
 echo "AKS_NAME          : $AKS_NAME" >> $logfile

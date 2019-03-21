@@ -120,6 +120,7 @@ data "template_file" "cloudconfig" {
   count = "${var.count}"
   template = "${file("${var.cloudconfig_file}")}"
   vars {
+    admin_username = "${var.admin_username}"
     hello_world_text = "${var.hello_world_text}.${count.index}"
   }
 }

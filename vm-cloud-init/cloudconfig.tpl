@@ -1,5 +1,3 @@
-#include https://get.docker.com
-
 #cloud-config
 apt:
   preserve_sources_list: true
@@ -17,4 +15,6 @@ packages:
   - azure-cli
 
 runcmd:
+ - curl https://get.docker.com | bash
+ - sudo usermod -aG docker ${admin_username}
  - echo "Hello ${hello_world_text}! Created by Azure terraform-vmss-cloudinit module." | sudo dd of=/tmp/terraformtest &> /dev/null

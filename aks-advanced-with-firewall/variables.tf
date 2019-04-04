@@ -13,7 +13,7 @@ variable "cluster_name" {
 }
 
 variable "k8s_version" {
-  default = "1.12.4"
+  default = "1.12.6"
 }
 
 variable "dns_prefix" {

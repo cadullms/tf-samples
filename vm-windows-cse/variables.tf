@@ -16,7 +16,7 @@ variable "hello_world_text" {
   description = "Text that Will be passed to the init-script as param."
 }
 
-variable "count" {
+variable "vm_count" {
   default = 1
   description = "How many VMs to create"
 }

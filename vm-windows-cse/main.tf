@@ -90,7 +90,7 @@ resource "azurerm_subnet_network_security_group_association" "mynsgassociation" 
 # Resources per VM-Instance ======================================
 
 resource "azurerm_public_ip" "myterraformpublicip" {
-    count = "${var.count}"
+    count = "${var.vm_count}"
     name                         = "myPublicIP-${count.index}"
     location                     = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name          = "${azurerm_resource_group.myterraformgroup.name}"
@@ -102,7 +102,7 @@ resource "azurerm_public_ip" "myterraformpublicip" {
 }
 
 resource "azurerm_network_interface" "myterraformnic" {
-    count = "${var.count}"
+    count = "${var.vm_count}"
     name                      = "myNIC-${count.index}"
     location                  = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name       = "${azurerm_resource_group.myterraformgroup.name}"
@@ -120,7 +120,7 @@ resource "azurerm_network_interface" "myterraformnic" {
 }
 
 data "template_file" "init_script" {
-  count = "${var.count}"
+  count = "${var.vm_count}"
   template = "${file("${var.init_script_file}")}"
   vars {
     admin_username = "${var.admin_username}"
@@ -129,7 +129,7 @@ data "template_file" "init_script" {
 }
 
 resource "azurerm_virtual_machine" "myterraformvm" {
-    count = "${var.count}"
+    count = "${var.vm_count}"
     name                  = "myVM-${count.index}"
     location              = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name   = "${azurerm_resource_group.myterraformgroup.name}"
@@ -168,7 +168,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
 
 resource "azurerm_virtual_machine_extension" "myvmext" {
   
-  count                = "${var.count}"
+  count                = "${var.vm_count}"
   name                 = "myvmext${count.index}"
   location             = "${azurerm_resource_group.myterraformgroup.location}"
   resource_group_name  = "${azurerm_resource_group.myterraformgroup.name}"
@@ -176,7 +176,7 @@ resource "azurerm_virtual_machine_extension" "myvmext" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
-  depends_on           = ["${element(azurerm_virtual_machine.myterraformvm.*,count.index)}"]
+  depends_on           = ["azurerm_virtual_machine.myterraformvm"]
 
       settings = <<SETTINGS
         {   

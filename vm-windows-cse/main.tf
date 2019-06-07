@@ -159,8 +159,9 @@ resource "azurerm_virtual_machine_extension" "myvmext" {
   depends_on           = ["azurerm_virtual_machine.myterraformvm"]
   # C:\AzureData\CustomData.bin is the path where the custom_data passed to the os_profile (see above) lands
   settings = <<SETTINGS
-        {   
-"powershell -command install-windowsfeature web-server;copy-item \"c:\\AzureData\\CustomData.bin\" \"c:\\AzureData\\CustomData.ps1\";\"c:\\AzureData\\CustomData.ps1\""        }
-  SETTINGS
+  {                        
+    "commandToExecute": "powershell -command install-windowsfeature web-server;copy-item \"c:\\AzureData\\CustomData.bin\" \"c:\\AzureData\\CustomData.ps1\";\"c:\\AzureData\\CustomData.ps1\""
+  }
+SETTINGS
     
 }

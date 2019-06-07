@@ -153,14 +153,14 @@ resource "azurerm_virtual_machine_extension" "myvmext" {
   location             = "${azurerm_resource_group.myterraformgroup.location}"
   resource_group_name  = "${azurerm_resource_group.myterraformgroup.name}"
   virtual_machine_name = "myvm-${count.index}"
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.9"
   depends_on           = ["azurerm_virtual_machine.myterraformvm"]
   # C:\AzureData\CustomData.bin is the path where the custom_data passed to the os_profile (see above) lands
   settings = <<SETTINGS
   {                        
-    "commandToExecute": "powershell -command install-windowsfeature web-server;copy-item \"c:\\AzureData\\CustomData.bin\" \"c:\\AzureData\\CustomData.ps1\";\"c:\\AzureData\\CustomData.ps1\""
+    "commandToExecute": "powershell -command copy-item \"c:\\AzureData\\CustomData.bin\" \"c:\\AzureData\\CustomData.ps1\";\"c:\\AzureData\\CustomData.ps1\""
   }
 SETTINGS
     

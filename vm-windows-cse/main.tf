@@ -10,10 +10,6 @@
 resource "azurerm_resource_group" "myterraformgroup" {
     name     = "${var.resource_group_name}"
     location = "${var.location}"
-
-    tags {
-        environment = "Terraform Demo for VM with cloud-init template"
-    }
 }
 
 # Shared Resources =======================================================
@@ -122,6 +118,7 @@ resource "azurerm_network_interface" "myterraformnic" {
 data "template_file" "init_script" {
   count = "${var.vm_count}"
   template = "${file("${var.init_script_file}")}"
+  
   vars {
     admin_username = "${var.admin_username}"
     hello_world_text = "${var.hello_world_text}.${count.index}"

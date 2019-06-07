@@ -19,10 +19,6 @@ resource "azurerm_virtual_network" "myterraformnetwork" {
     address_space       = ["10.0.0.0/16"]
     location            = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name = "${azurerm_resource_group.myterraformgroup.name}"
-
-    tags {
-        environment = "Terraform Demo"
-    }
 }
 
 resource "azurerm_network_security_group" "myterraformnsg" {
@@ -66,9 +62,6 @@ resource "azurerm_network_security_group" "myterraformnsg" {
         destination_address_prefix = "*"
     }
 
-    tags {
-        environment = "Terraform Demo"
-    }
 }
 
 resource "azurerm_subnet" "myterraformsubnet" {
@@ -92,9 +85,6 @@ resource "azurerm_public_ip" "myterraformpublicip" {
     resource_group_name          = "${azurerm_resource_group.myterraformgroup.name}"
     allocation_method = "Dynamic"
 
-    tags {
-        environment = "Terraform Demo"
-    }
 }
 
 resource "azurerm_network_interface" "myterraformnic" {
@@ -110,16 +100,13 @@ resource "azurerm_network_interface" "myterraformnic" {
         public_ip_address_id          = "${element(azurerm_public_ip.myterraformpublicip.*.id,count.index)}"
     }
 
-    tags {
-        environment = "Terraform Demo"
-    }
 }
 
 data "template_file" "init_script" {
   count = "${var.vm_count}"
   template = "${file("${var.init_script_file}")}"
-  
-  vars {
+
+  vars = {
     admin_username = "${var.admin_username}"
     hello_world_text = "${var.hello_world_text}.${count.index}"
   }
@@ -156,10 +143,6 @@ resource "azurerm_virtual_machine" "myterraformvm" {
 
     os_profile_windows_config {
         provision_vm_agent = true
-    }
-
-    tags {
-        environment = "Terraform Demo"
     }
 }
 

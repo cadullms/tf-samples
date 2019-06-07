@@ -157,11 +157,11 @@ resource "azurerm_virtual_machine_extension" "myvmext" {
   type                 = "CustomScript"
   type_handler_version = "2.0"
   depends_on           = ["azurerm_virtual_machine.myterraformvm"]
-
-      settings = <<SETTINGS
+  # C:\AzureData\CustomData.bin is the path where the custom_data passed to the os_profile (see above) lands
+  settings = <<SETTINGS
         {   
           "commandToExecute": "powershell -command copy-item \"c:\\AzureData\\CustomData.bin\" \"c:\\AzureData\\CustomData.ps1\";\"c:\\AzureData\\CustomData.ps1\""
         }
-SETTINGS
+  SETTINGS
     
 }

@@ -118,7 +118,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
     location              = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name   = "${azurerm_resource_group.myterraformgroup.name}"
     network_interface_ids = ["${element(azurerm_network_interface.myterraformnic.*.id,count.index)}"]
-    vm_size               = "Standard_DS1_v2"
+    vm_size               = "Standard_DS2_v2"
 
     storage_os_disk {
         name              = "myOsDisk-${count.index}"
@@ -130,7 +130,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
     storage_image_reference {
         publisher = "MicrosoftWindowsServer"
         offer     = "WindowsServer"
-        sku       = "2016-Datacenter-with-Containers"
+        sku       = "${var.vm_sku}"
         version   = "latest"
     }
 

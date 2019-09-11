@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "myterraformgroup" {
     name     = "${var.resource_group_name}"
     location = "${var.location}"
 
-    tags {
+    tags = {
         environment = "Terraform Demo for VM with cloud-init template"
     }
 }
@@ -24,7 +24,7 @@ resource "azurerm_virtual_network" "myterraformnetwork" {
     location            = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name = "${azurerm_resource_group.myterraformgroup.name}"
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }
@@ -70,7 +70,7 @@ resource "azurerm_network_security_group" "myterraformnsg" {
         destination_address_prefix = "*"
     }
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }
@@ -103,7 +103,7 @@ resource "azurerm_storage_account" "mystorageaccount" {
     account_tier                = "Standard"
     account_replication_type    = "LRS"
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }
@@ -111,19 +111,19 @@ resource "azurerm_storage_account" "mystorageaccount" {
 # Resources per VM-Instance ======================================
 
 resource "azurerm_public_ip" "myterraformpublicip" {
-    count = "${var.count}"
+    count = "${var.vmcount}"
     name                         = "myPublicIP-${count.index}"
     location                     = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name          = "${azurerm_resource_group.myterraformgroup.name}"
     allocation_method = "Dynamic"
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }
 
 resource "azurerm_network_interface" "myterraformnic" {
-    count = "${var.count}"
+    count = "${var.vmcount}"
     name                      = "myNIC-${count.index}"
     location                  = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name       = "${azurerm_resource_group.myterraformgroup.name}"
@@ -135,22 +135,22 @@ resource "azurerm_network_interface" "myterraformnic" {
         public_ip_address_id          = "${element(azurerm_public_ip.myterraformpublicip.*.id,count.index)}"
     }
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }
 
 data "template_file" "cloudconfig" {
-  count = "${var.count}"
+  count = "${var.vmcount}"
   template = "${file("${var.cloudconfig_file}")}"
-  vars {
+  vars = {
     admin_username = "${var.admin_username}"
     hello_world_text = "${var.hello_world_text}.${count.index}"
   }
 }
 
 data "template_cloudinit_config" "config" {
-  count = "${var.count}"
+  count = "${var.vmcount}"
   gzip          = true
   base64_encode = true
 
@@ -161,7 +161,7 @@ data "template_cloudinit_config" "config" {
 }
 
 resource "azurerm_virtual_machine" "myterraformvm" {
-    count = "${var.count}"
+    count = "${var.vmcount}"
     name                  = "myVM-${count.index}"
     location              = "${azurerm_resource_group.myterraformgroup.location}"
     resource_group_name   = "${azurerm_resource_group.myterraformgroup.name}"
@@ -202,7 +202,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
         storage_uri = "${azurerm_storage_account.mystorageaccount.primary_blob_endpoint}"
     }
 
-    tags {
+    tags = {
         environment = "Terraform Demo"
     }
 }

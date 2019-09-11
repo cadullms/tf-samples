@@ -16,7 +16,7 @@ variable "hello_world_text" {
   description = "Will be written as part of a file in /tmp dir."
 }
 
-variable "count" {
+variable "vmcount" {
   default = 1
   description = "How many VMs to create"
 }

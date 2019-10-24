@@ -18,6 +18,14 @@ resource "azurerm_firewall" "aks_firewall" {
   }
 }
 
+data "external" "azure_datacenter_ip_ranges" {
+  program = ["bash", "${path.module}/support-files/get-azure-dc-ip-ranges.sh"]
+
+  query = {
+    location = "${azurerm_resource_group.aks_rg.location}"
+  }
+}
+
 resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
   name                = "aksnetwork"
   azure_firewall_name = "${azurerm_firewall.aks_firewall.name}"
@@ -36,9 +44,7 @@ resource "azurerm_firewall_network_rule_collection" "aksnetwork" {
       "22",
     ]
 
-    destination_addresses = [
-      "*",
-    ]
+    destination_addresses = "${split(",",lookup(data.external.azure_datacenter_ip_ranges.result,"ips"))}"
 
     protocols = [
       "TCP",

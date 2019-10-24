@@ -39,7 +39,7 @@ resource "azuread_service_principal" "aks_server_app" {
   application_id = "${azuread_application.aks_server_app.application_id}"
 }
 
-resource "ramdom_password" "aks_server_app" {
+resource "random_password" "aks_server_app" {
     length = 32
 }
 
@@ -92,7 +92,7 @@ resource "azuread_service_principal" "aks_sp" {
   application_id = "${azuread_application.aks_sp.application_id}"
 }
 
-resource "ramdom_password" "aks_sp" {
+resource "random_password" "aks_sp" {
     length = 32
 }
 

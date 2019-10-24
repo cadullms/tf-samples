@@ -17,4 +17,6 @@ packages:
 runcmd:
  - curl https://get.docker.com | bash
  - sudo usermod -aG docker ${admin_username}
+ - wget https://github.com/wagoodman/dive/releases/download/v0.8.1/dive_0.8.1_linux_amd64.deb
+ - sudo apt install ./dive_0.8.1_linux_amd64.deb
  - echo "Hello ${hello_world_text}! Created by Azure terraform-vmss-cloudinit module." | sudo dd of=/tmp/terraformtest &> /dev/null

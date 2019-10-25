@@ -30,10 +30,13 @@ resource "azurerm_kubernetes_cluster" "aks_with_aad" {
     client_secret = "${random_password.aks_sp.result}"
   }
 
-  azure_active_directory {
-    client_app_id = "${azuread_application.aks_client_app.application_id}"
-    server_app_id = "${azuread_application.aks_server_app.application_id}"
-    server_app_secret = "${random_password.aks_server_app.result}"
+  role_based_access_control {
+    enabled = true
+    azure_active_directory {
+      client_app_id = "${azuread_application.aks_client_app.application_id}"
+      server_app_id = "${azuread_application.aks_server_app.application_id}"
+      server_app_secret = "${random_password.aks_server_app.result}"
+    }
   }
 
 }

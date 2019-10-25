@@ -29,6 +29,7 @@ resource "azuread_application" "aks_server_app" {
 
   provisioner "local-exec" {
       command = <<EOF
+        sleep 15s &&
         az ad app permission grant --id ${azuread_application.aks_server_app.application_id} --api 00000003-0000-0000-c000-000000000000 && 
         az ad app permission admin-consent --id ${azuread_application.aks_server_app.application_id}
       EOF
@@ -69,6 +70,7 @@ resource "azuread_service_principal_password" "aks_server_app" {
 
   provisioner "local-exec" {
       command = <<EOF
+        sleep 15s &&
         az ad app permission grant --id ${azuread_application.aks_client_app.application_id} --api ${azuread_application.aks_server_app.id} 
       EOF
   }

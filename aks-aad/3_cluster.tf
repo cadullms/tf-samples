@@ -12,9 +12,9 @@ resource "azurerm_kubernetes_cluster" "aks_with_aad" {
   linux_profile {
     admin_username = "azureuser"
 
-    # ssh_key {
-    #   key_data = "${var.ssh_public_key_data}"
-    # }
+    ssh_key {
+      key_data = "${var.ssh_public_key_data}"
+    }
   }
 
   agent_pool_profile {

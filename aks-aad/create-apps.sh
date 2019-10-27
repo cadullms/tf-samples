@@ -1,8 +1,10 @@
 #!/bin/bash
 
+tenantId=$(az account show --query "tenantId" -o tsv)
+
 # ======= SERVER APP =======
 # https://docs.microsoft.com/en-us/azure/aks/azure-ad-integration-cli
-aksname="cadullaksaad2"
+aksname="cadullaksaad"
 # Create the Azure AD application
 serverApplicationId=$(az ad app create \
     --display-name "${aksname}Server" \
@@ -37,3 +39,7 @@ oAuthPermissionId=$(az ad app show --id $serverApplicationId --query "oauth2Perm
 az ad app permission add --id $clientApplicationId --api $serverApplicationId --api-permissions $oAuthPermissionId=Scope
 az ad app permission grant --id $clientApplicationId --api $serverApplicationId
 
+echo "aad_client_app_id $clientApplicationId"
+echo "aad_server_app_id $serverApplicationId"
+echo "aad_server_app_secret $serverApplicationSecret"
+echo "aad_tenant_id $tenantId"

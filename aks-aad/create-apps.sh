@@ -23,8 +23,8 @@ az ad app permission add \
     --api 00000003-0000-0000-c000-000000000000 \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope 06da0dbc-49e2-44d2-8312-53f166ab848a=Scope 7ab1d382-f21e-4acd-a863-ba3e13f7da61=Role
 # Grant permissions
-az ad app permission admin-consent --id  $serverApplicationId
 az ad app permission grant --id $serverApplicationId --api 00000003-0000-0000-c000-000000000000
+az ad app permission admin-consent --id  $serverApplicationId
 
 # ======= CLIENT APP =======
 clientApplicationId=$(az ad app create \

@@ -31,12 +31,12 @@ resource "azuread_application" "aks_server_app" {
 resource "azuread_service_principal" "aks_server_app" {
   application_id = "${azuread_application.aks_server_app.application_id}"
 
-#     provisioner "local-exec" {
-#       command = <<EOF
-#         az ad app permission grant --id ${azuread_application.aks_server_app.application_id} --api 00000003-0000-0000-c000-000000000000 && 
-#         az ad app permission admin-consent --id ${azuread_application.aks_server_app.application_id}
-#       EOF
-#   }
+    provisioner "local-exec" {
+      command = <<EOF
+        az ad app permission grant --id ${azuread_application.aks_server_app.application_id} --api 00000003-0000-0000-c000-000000000000 && 
+        az ad app permission admin-consent --id ${azuread_application.aks_server_app.application_id}
+      EOF
+  }
 }
 
 resource "random_password" "aks_server_app" {
@@ -70,11 +70,11 @@ resource "azuread_service_principal_password" "aks_server_app" {
 
 resource "azuread_service_principal" "aks_client_app" {
   application_id = "${azuread_application.aks_client_app.application_id}"
-#   provisioner "local-exec" {
-#       command = <<EOF
-#         az ad app permission grant --id ${azuread_application.aks_client_app.application_id} --api ${azuread_application.aks_server_app.id} 
-#       EOF
-#   }
+  provisioner "local-exec" {
+      command = <<EOF
+        az ad app permission grant --id ${azuread_application.aks_client_app.application_id} --api ${azuread_application.aks_server_app.id} 
+      EOF
+  }
 }
 
 resource "azuread_application" "aks_sp" {

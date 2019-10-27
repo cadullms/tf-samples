@@ -23,3 +23,11 @@ variable "aad_server_app_secret" {
 
 variable "aad_tenant_id" { 
 }
+
+variable "sp_app_id" {
+}
+
+variable "sp_app_secret" {
+  
+}
+

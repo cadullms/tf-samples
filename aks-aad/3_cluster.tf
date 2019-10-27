@@ -26,8 +26,8 @@ resource "azurerm_kubernetes_cluster" "aks_with_aad" {
   }
 
   service_principal {
-    client_id     = "${azuread_application.aks_sp.application_id}"
-    client_secret = "${random_password.aks_sp.result}"
+    client_id     = "${var.sp_app_id}"
+    client_secret = "${var.sp_app_secret}"
   }
 
   role_based_access_control {

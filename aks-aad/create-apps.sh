@@ -39,6 +39,7 @@ oAuthPermissionId=$(az ad app show --id $serverApplicationId --query "oauth2Perm
 az ad app permission add --id $clientApplicationId --api $serverApplicationId --api-permissions $oAuthPermissionId=Scope
 az ad app permission grant --id $clientApplicationId --api $serverApplicationId
 
+# Output
 echo "aad_client_app_id $clientApplicationId"
 echo "aad_server_app_id $serverApplicationId"
 echo "aad_server_app_secret $serverApplicationSecret"

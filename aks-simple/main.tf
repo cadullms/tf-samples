@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "aks_simple" {
     client_secret = var.sp_client_secret
   }
 
-  tags {
+  tags = {
     Environment = var.environment_name
   }
 }

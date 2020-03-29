@@ -1,3 +1,8 @@
+provider "azurerm" {
+  version = "~> 2.3"
+  features {}
+}
+
 resource "azurerm_resource_group" "aks_rg" {
   name     = var.resource_group_name
   location = var.location
@@ -17,12 +22,10 @@ resource "azurerm_kubernetes_cluster" "aks_simple" {
     }
   }
 
-  agent_pool_profile {
+  default_node_pool {
     name            = "default"
-    count           = var.agent_count
+    node_count      = var.agent_count
     vm_size         = "Standard_DS2_v2"
-    os_type         = "Linux"
-    os_disk_size_gb = 30
   }
 
   service_principal {
